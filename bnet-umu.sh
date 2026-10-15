@@ -1,6 +1,7 @@
 declare -r installer_url="https://downloader.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe"
 
 export WINEPREFIX=$HOME/$BNET_PREFIX
+gamePath="$WINEPREFIX"/drive_c/"$WIN_PATH"
 
 if [ ! -f "$WINEPREFIX"/drive_c/"$BNET_PATH" ]; then
 	echo "Battle.net is not installed at C:/$BNET_PATH"
@@ -23,7 +24,10 @@ if [ ! -f "$WINEPREFIX"/drive_c/"$BNET_PATH" ]; then
 
 	umu-run "$installer"
 	rm -f "$installer"
+elif [ ! -f "$gamePath" ]; then
+	read -rn 1 -p "There is no game installed at $gamePath, please install it with Battle.net (Press any key to close)"
+	exit 1
 else
-	umu-run "$WINEPREFIX"/drive_c/"$WIN_PATH"
+	umu-run "$gamePath"
 fi
 
