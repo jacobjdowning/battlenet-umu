@@ -1,4 +1,4 @@
 let
 	pkgs = import <nixpkgs> {};
 in
-	pkgs.callPackage ./umu.nix {}
+	pkgs.callPackage ./pkg.nix {}
