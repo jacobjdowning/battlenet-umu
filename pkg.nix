@@ -1,9 +1,15 @@
-{ writeShellApplication, curl, coreutils, umu-launcher, proton-ge-bin,
+{ writeShellApplication, curl, coreutils, umu-launcher, proton-ge-bin, lib,
 	bnetPrefix ? "TestGames/battlenet",
 	gamePath ? "Program Files (x86)/Battle.net/Battle.net Launcher.exe",	
+	gameName ? "Battle.net"
 }:
+let
+	lowerName = lib.toLower gameName;
+	nameList = builtins.filter builtins.isString (builtins.split "[^a-z]+" lowerName);
+	scriptName = lib.concatStringsSep "-" (nameList ++ ["umu"]);
+in
 writeShellApplication {
-	name = "bnet-umu";
+	name = scriptName; 
 	runtimeInputs = [ 
 		umu-launcher
 		curl
