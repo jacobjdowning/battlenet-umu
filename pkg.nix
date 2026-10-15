@@ -1,4 +1,4 @@
-{ writeShellApplication, curl, coreutils, umu-launcher, proton-ge-bin, lib,
+{ writeShellApplication, curl, coreutils, umu-launcher, proton-ge-bin, lib, makeDesktopItem, symlinkJoin,
 	bnetPrefix ? "TestGames/battlenet",
 	gamePath ? "Program Files (x86)/Battle.net/Battle.net Launcher.exe",	
 	gameName ? "Battle.net"
@@ -7,20 +7,34 @@ let
 	lowerName = lib.toLower gameName;
 	nameList = builtins.filter builtins.isString (builtins.split "[^a-z]+" lowerName);
 	scriptName = lib.concatStringsSep "-" (nameList ++ ["umu"]);
-in
-writeShellApplication {
-	name = scriptName; 
-	runtimeInputs = [ 
-		umu-launcher
-		curl
-		coreutils
-	];
-	runtimeEnv = {
-		GAMEID = "umu-default";
-		PROTONPATH = "${proton-ge-bin.steamcompattool}";
-		BNET_PREFIX = bnetPrefix;
-		BNET_PATH = "Program Files (x86)/Battle.net/Battle.net Launcher.exe";
-		WIN_PATH = gamePath;
+
+	script = writeShellApplication {
+		name = scriptName; 
+		runtimeInputs = [ 
+			umu-launcher
+			curl
+			coreutils
+		];
+		runtimeEnv = {
+			GAMEID = "umu-default";
+			PROTONPATH = "${proton-ge-bin.steamcompattool}";
+			BNET_PREFIX = bnetPrefix;
+			BNET_PATH = "Program Files (x86)/Battle.net/Battle.net Launcher.exe";
+			WIN_PATH = gamePath;
+		};
+		text = builtins.readFile ./bnet-umu.sh;
+	};	
+	desktopItem = makeDesktopItem{
+		name = scriptName;
+		desktopName = gameName;
+		exec = lib.getExe script;
+		terminal = true;
+		categories = [ "Game" ];
+
 	};
-	text = builtins.readFile ./bnet-umu.sh;
-}
+in
+	symlinkJoin{
+		name = scriptName;
+		paths = [ script desktopItem ];
+		meta.mainProgram = scriptName;
+	}
