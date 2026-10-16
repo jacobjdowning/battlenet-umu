@@ -15,6 +15,15 @@
 					home.username = "test";
 					home.homeDirectory = "/home/jjd";
 					home.stateVersion = "26.05";
+
+					programs.battlenet-umu.enable = true;
+					programs.battlenet-umu.games = [
+						{ name = "Battle.net"; }
+						{ 
+							name = "WoW Classic";
+							path = "Program Files (x86)/World of Warcraft/_classic_era_/WowClassic.exe";
+						}
+					];
 				}
 			];
 		};

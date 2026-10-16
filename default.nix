@@ -1,9 +1,5 @@
 {pkgs, lib, config, ...}:
 let
-	pkg = pkgs.callPackage ./pkg.nix {
-		gamePath = "Program Files (x86)/World of Warcraft/_classic_era_/WowClassic.exe";
-		gameName = "WoW Classic";
-	};
 	game = lib.types.submodule{
 		options = {
 			name = lib.mkOption {
@@ -22,6 +18,7 @@ let
 			};
 		};
 	};
+	cfg = config.programs.battlenet-umu;
 in
 {
 	options.programs.battlenet-umu = {
@@ -38,7 +35,13 @@ in
 		};
 
 	};
-	config = {
-		home.packages = [ pkg ];
+	config = lib.mkIf cfg.enable {
+		home.packages = map (game:
+			pkgs.callPackage ./pkg.nix {
+				bnetPrefix = cfg.prefix;
+				gamePath = game.path;
+				gameName = game.name;
+			}
+		) cfg.games;
 	};
 }

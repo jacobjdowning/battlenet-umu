@@ -1,6 +1,6 @@
 declare -r installer_url="https://downloader.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe"
 
-export WINEPREFIX=$HOME/$BNET_PREFIX
+export WINEPREFIX=$BNET_PREFIX
 gamePath="$WINEPREFIX"/drive_c/"$WIN_PATH"
 
 if [ ! -f "$WINEPREFIX"/drive_c/"$BNET_PATH" ]; then
