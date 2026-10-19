@@ -29,6 +29,20 @@
 							path = "Program Files (x86)/World of Warcraft/_classic_era_/WowClassic.exe";
 						}
 					];
+
+					programs.battlenet-umu.addons = {
+						enable = true;
+						versions = [
+						{
+							name = "era";
+							addonDir = "Program Files (x86)/World of Warcraft/_classic_era/Interface/addons";
+							flavour = "vanilla_classic";
+							addons = [
+								"github:sfx-wow/masque"
+								];
+						}
+						];
+					};
 				}
 			];
 		};
