@@ -27,7 +27,7 @@ let
 				description = "A list of addons for this version";
 				type = lib.types.listOf 
 					(lib.types.strMatching 
-						"(github|curse|tukui|wago|wowi)\\:.+");
+						"(github|curse|tukui|wago|wowi):.+");
 				example = [ "github:sfx-wow/masque" ];
 			};
 			extraConfig = lib.mkOption {
@@ -104,6 +104,9 @@ in
 	};
 
 	config = lib.mkIf cfg.enable {
+		home.packages = [ ( pkgs.callPackage ./pkg.nix {
+			wowVersions = cfg.versions;
+		} ) ];
 		xdg.configFile = mainConfigAttr // profileConfigsAttr;
 	};
 }

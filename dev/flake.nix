@@ -14,7 +14,7 @@
 	outputs = { nixpkgs, home-manager, battlenet-umu, ... }: {
 		homeConfigurations.test = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages.x86_64-linux;
-			modules = [ 
+			modules = [
 				battlenet-umu.homeModules.default
 				{
 					home.username = "test";
@@ -39,6 +39,8 @@
 							flavour = "vanilla_classic";
 							addons = [
 								"github:sfx-wow/masque"
+								"github:VgerMods/Pawn"
+								"github:sirus-addons/TomTom"
 								];
 						}
 						];
