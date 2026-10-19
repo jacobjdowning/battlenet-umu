@@ -1,5 +1,3 @@
-IFS=";" read -r -a addons <<< "$ERA_ADDONS"
-
-for addon in "${addons[@]}"; do
+for addon in $ERA_ADDONS; do
 	echo "$addon"
 done
