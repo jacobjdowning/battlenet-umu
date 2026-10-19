@@ -27,7 +27,7 @@ let
 				description = "A list of addons for this version";
 				type = lib.types.listOf 
 					(lib.types.strMatching 
-						"(github|curse|tukui|wago|wowi):.+");
+						"(github|curse|tukui|wago|wowi):[^[:space:]]+");
 				example = [ "github:sfx-wow/masque" ];
 			};
 			extraConfig = lib.mkOption {
