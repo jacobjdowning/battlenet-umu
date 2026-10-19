@@ -37,7 +37,8 @@ let
 		};
 	};
 
-	cfg = config.programs.battlenet-umu.addons;
+	battlenet = config.programs.battlenet-umu;
+	cfg = battlenet.addons;
 	json = pkgs.formats.json {};
 
 	# An attr to be set to xdg.configFile for main config
@@ -53,7 +54,7 @@ let
 
 	profileToConfig = profile: {
 		profile = profile.name;
-		addon_dir = profile.addonDir;
+		addon_dir = lib.join "/" [ battlenet.prefix profile.addonDir ];
 		flavour_override = profile.flavour;
 	} // profile.extraConfig;
 
