@@ -54,7 +54,11 @@ let
 
 	profileToConfig = profile: {
 		profile = profile.name;
-		addon_dir = lib.join "/" [ battlenet.prefix profile.addonDir ];
+		addon_dir = lib.join "/" [ 
+			battlenet.prefix
+			"drive_c"
+			profile.addonDir
+		];
 		flavour_override = profile.flavour;
 	} // profile.extraConfig;
 
