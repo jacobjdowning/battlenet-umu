@@ -35,7 +35,7 @@
 						versions = [
 						{
 							name = "era";
-							addonDir = "Program Files (x86)/World of Warcraft/_classic_era/Interface/addons";
+							addonDir = "Program Files (x86)/World of Warcraft/_classic_era/Interface/AddOns";
 							flavour = "vanilla_classic";
 							addons = [
 								"github:sfx-wow/masque"
