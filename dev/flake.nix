@@ -27,6 +27,11 @@
 						{ 
 							name = "WoW Classic";
 							path = "Program Files (x86)/World of Warcraft/_classic_era_/WowClassic.exe";
+							launchArgs = "-console";
+						}
+						{
+							name = "World of Warcraft";
+							path = "Program Files (x86)/World of Warcraft/_retail_/Wow.exe";
 						}
 					];
 
@@ -41,6 +46,11 @@
 								"github:sfx-wow/masque"
 								"github:VgerMods/Pawn"
 								];
+						}
+						{
+							name = "retail";
+							addonDir = "Program Files (x86)/World of Warcraft/_retail_/Interface/Addons";
+							flavour = "mainline";
 						}
 						];
 					};
