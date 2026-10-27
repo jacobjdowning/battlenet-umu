@@ -4,7 +4,7 @@
 	inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 	inputs.instawow = {
 		url = "github:layday/instawow/v7.3.0";
-		#inputs.nixpkgs.follows = "nixpkgs";
+		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
 	outputs = { self, instawow, ...}: {
@@ -27,6 +27,7 @@
 						version = "7.3.0";
 						hash = "sha256-ZB+FuMf5oJVRAtsinhFa6NQH5FvInpfnTlchsrVbgA8=";
 					};
+					pythonRelaxDeps = [ "aiohttp" "rapidfuzz" ];
 				});
 			in
 			{
