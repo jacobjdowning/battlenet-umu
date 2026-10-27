@@ -75,6 +75,11 @@ let
 			value = {source = profileToJson profileToConfig profile; };
 		}) cfg.versions 
 	);
+
+	syncPackage = pkgs.callPackage ./pkg.nix {
+			wowVersions = cfg.versions;
+			instawow = cfg.package;
+	};	
 in
 {
 	options.programs.battlenet-umu.addons = {
@@ -114,10 +119,20 @@ in
 	};
 
 	config = lib.mkIf cfg.enable {
-		home.packages = [ ( pkgs.callPackage ./pkg.nix {
-			wowVersions = cfg.versions;
-			instawow = cfg.package;
-		} ) ];
+		home.packages = [ syncPackage ];
 		xdg.configFile = mainConfigAttr // profileConfigsAttr;
+		
+		systemd.user.services.wow-addon-sync = {
+			Unit = {
+				Description = "Sync WoW addons to the declared options on every boot";
+			};
+
+			Service = {	
+				Type = "oneshot";
+				ExecStart = map ( 
+					profile: syncPackage + " " + profile.name 
+				) cfg.versions;
+			};
+		};
 	};
 }

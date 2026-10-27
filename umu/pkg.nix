@@ -1,7 +1,8 @@
 { writeShellApplication, curl, coreutils, umu-launcher, proton-ge-bin, lib, makeDesktopItem, symlinkJoin,
 	bnetPrefix ? "TestGames/battlenet",
 	gamePath ? "Program Files (x86)/Battle.net/Battle.net Launcher.exe",	
-	gameName ? "Battle.net"
+	gameName ? "Battle.net",
+	launchArgs ? ""
 }:
 let
 	lowerName = lib.toLower gameName;
@@ -21,6 +22,7 @@ let
 			BNET_PREFIX = bnetPrefix;
 			BNET_PATH = "Program Files (x86)/Battle.net/Battle.net Launcher.exe";
 			WIN_PATH = gamePath;
+			LAUNCH_ARGS = launchArgs;
 		};
 		text = builtins.readFile ./bnet-umu.sh;
 	};	

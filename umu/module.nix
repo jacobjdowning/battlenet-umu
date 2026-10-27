@@ -16,6 +16,12 @@ let
 				type = lib.types.package;
 				default = pkgs.proton-ge-bin;
 			};
+			launchArgs = lib.mkOption {
+				description = "Any launch options to be sent to the exe";
+				type = lib.types.str;
+				default = "";
+			};
+
 		};
 	};
 	cfg = config.programs.battlenet-umu;
@@ -41,6 +47,7 @@ in
 				bnetPrefix = cfg.prefix;
 				gamePath = game.path;
 				gameName = game.name;
+				launchArgs = game.launchArgs;
 			}
 		) cfg.games;
 	};

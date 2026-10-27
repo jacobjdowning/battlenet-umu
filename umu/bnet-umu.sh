@@ -28,6 +28,6 @@ elif [ ! -f "$gamePath" ]; then
 	read -rn 1 -p "There is no game installed at $gamePath, please install it with Battle.net (Press any key to close)"
 	exit 1
 else
-	umu-run "$gamePath"
+	umu-run "$gamePath" "$LAUNCH_ARGS"
 fi
 
