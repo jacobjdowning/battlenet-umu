@@ -7,7 +7,7 @@
 		};
 		battlenet-umu = {
 			url = "path:../";
-			inputs.nixpkgs.follows = "nixpkgs";
+			# inputs.nixpkgs.follows = "nixpkgs";
 		};
 
 	};
@@ -40,7 +40,6 @@
 							addons = [
 								"github:sfx-wow/masque"
 								"github:VgerMods/Pawn"
-								"github:sirus-addons/TomTom"
 								];
 						}
 						];

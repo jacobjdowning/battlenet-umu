@@ -79,6 +79,11 @@ in
 {
 	options.programs.battlenet-umu.addons = {
 		enable = lib.mkEnableOption "addon control through instawow";
+		package = lib.mkOption {
+			description = "Package of instawow to use to sync";
+			type = lib.types.package;
+			default = pkgs.instawow;
+		};
 		tokens = lib.mkOption {
 			description = "API tokens for addon providers";
 			type = lib.types.submodule {
@@ -111,6 +116,7 @@ in
 	config = lib.mkIf cfg.enable {
 		home.packages = [ ( pkgs.callPackage ./pkg.nix {
 			wowVersions = cfg.versions;
+			instawow = cfg.package;
 		} ) ];
 		xdg.configFile = mainConfigAttr // profileConfigsAttr;
 	};
