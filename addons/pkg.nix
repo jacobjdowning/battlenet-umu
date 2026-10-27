@@ -2,7 +2,7 @@
   wowVersions ? []
 }:
 writeShellApplication {
-	name = "decInstaWow";
+	name = "sync-addons";
 	runtimeInputs = [ instawow ];
 	runtimeEnv = builtins.listToAttrs (map (profile:{
 		name = lib.toUpper (lib.join "_" [profile.name "addons"]);
