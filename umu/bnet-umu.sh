@@ -2,8 +2,18 @@ declare -r installer_url="https://downloader.battle.net/download/getInstaller?os
 
 export WINEPREFIX=$BNET_PREFIX
 gamePath="$WINEPREFIX"/drive_c/"$WIN_PATH"
+bnetPath="$WINEPREFIX"/drive_c/"$BNET_PATH" 
 
-if [ ! -f "$WINEPREFIX"/drive_c/"$BNET_PATH" ]; then
+# if this script needs to message the user and isn't in a visual termianl
+# then launch a new terminal
+
+if [ ! -f "$bnetPath" ] || [ ! -f "$gamePath" ]; then
+	if [ ! -t 0 ]; then
+		exec xdg-terminal-exec "$0" "$@"
+	fi
+fi
+
+if [ ! -f "$bnetPath" ]; then
 	echo "Battle.net is not installed at C:/$BNET_PATH"
 	while true; do
 		read -rp "Would you like to install it now? [y/n]:" answer

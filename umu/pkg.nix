@@ -1,4 +1,4 @@
-{ writeShellApplication, curl, coreutils, umu-launcher, proton-ge-bin, lib, makeDesktopItem, symlinkJoin,
+{ writeShellApplication, curl, coreutils, umu-launcher, proton-ge-bin, lib, makeDesktopItem, symlinkJoin, xdg-terminal-exec,
 	bnetPrefix ? "TestGames/battlenet",
 	gamePath ? "Program Files (x86)/Battle.net/Battle.net Launcher.exe",	
 	gameName ? "Battle.net",
@@ -15,6 +15,7 @@ let
 			umu-launcher
 			curl
 			coreutils
+			xdg-terminal-exec
 		];
 		runtimeEnv = {
 			GAMEID = "umu-default";
@@ -30,7 +31,7 @@ let
 		name = scriptName;
 		desktopName = gameName;
 		exec = lib.getExe script;
-		terminal = true;
+		terminal = false;
 		categories = [ "Game" ];
 
 	};
