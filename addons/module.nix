@@ -131,7 +131,7 @@ in
 	};
 
 	config = lib.mkIf cfg.enable {
-		home.packages = [ syncPackage ];
+		home.packages = [ syncPackage  cfg.package ];
 		xdg.configFile = profileConfigsAttr // lib.optionalAttrs isConfigEmpty mainConfigAttr ;
 		
 		systemd.user.services.wow-addon-sync = {
