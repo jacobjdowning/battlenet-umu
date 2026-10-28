@@ -4,7 +4,7 @@ let
 		options = {
 			name = lib.mkOption {
 				description = "Name of the instawow profile for this version";
-				type = lib.types.strMatching "[A-Za-z0-9._-]+";
+				type = lib.types.strMatching "[A-Za-z0-9_]+";
 			};
 			addonDir = lib.mkOption {
 				description = "Path to the Addons folder within the prefix's C:/ drive";
