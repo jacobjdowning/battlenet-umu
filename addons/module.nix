@@ -50,7 +50,7 @@ let
 				inherit (cfg.tokens) cfcore github;
 				wago_addons = cfg.tokens.wagoAddons;
 			};
-		}//cfg.extraConfig);
+		} // cfg.extraConfig);
 	};
 
 	profileToConfig = profile: {
