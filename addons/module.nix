@@ -29,6 +29,7 @@ let
 					(lib.types.strMatching 
 						"(github|curse|tukui|wago|wowi):[^[:space:]]+");
 				example = [ "github:sfx-wow/masque" ];
+				default = [];
 			};
 			extraConfig = lib.mkOption {
 				type = json.type; 
