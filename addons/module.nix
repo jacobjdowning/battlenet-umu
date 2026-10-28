@@ -131,7 +131,7 @@ in
 			Service = {	
 				Type = "oneshot";
 				ExecStart = map ( 
-					profile: syncPackage + " " + profile.name 
+					profile: "${lib.getExe syncPackage} ${profile.name}" 
 				) cfg.versions;
 			};
 		};
