@@ -81,6 +81,15 @@ let
 			wowVersions = cfg.versions;
 			instawow = cfg.package;
 	};	
+	
+	toBool = x: x != null && x != { } && x != 0;
+	anyTrue = acc: x: (toBool acc) || (toBool x);
+	isConfigEmpty = ! lib.foldl' anyTrue 0 [
+		cfg.tokens.cfcore
+		cfg.tokens.github
+		cfg.tokens.wagoAddons
+		cfg.extraConfig
+	];
 in
 {
 	options.programs.battlenet-umu.addons = {
@@ -121,7 +130,7 @@ in
 
 	config = lib.mkIf cfg.enable {
 		home.packages = [ syncPackage ];
-		xdg.configFile = mainConfigAttr // profileConfigsAttr;
+		xdg.configFile = profileConfigsAttr // lib.optionalAttrs isConfigEmpty mainConfigAttr ;
 		
 		systemd.user.services.wow-addon-sync = {
 			Unit = {
