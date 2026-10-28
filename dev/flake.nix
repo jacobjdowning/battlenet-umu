@@ -49,7 +49,7 @@
 						}
 						{
 							name = "retail";
-							addonDir = "Program Files (x86)/World of Warcraft/_retail_/Interface/Addons";
+							addonDir = "Program Files (x86)/World of Warcraft/_retail_/Interface/AddOns";
 							flavour = "mainline";
 						}
 						];

@@ -72,7 +72,7 @@ let
 	# An attr to be set to xdg.configFile for each profile in versions
 	profileConfigsAttr = builtins.listToAttrs ( 
 		map (profile: {
-			name = lib.join "/" ["instawow" profile.name "config.json"];
+			name = lib.join "/" ["instawow" "profiles" profile.name "config.json"];
 			value = {source = profileToJson profileToConfig profile; };
 		}) cfg.versions 
 	);
@@ -80,6 +80,8 @@ let
 	syncPackage = pkgs.callPackage ./pkg.nix {
 			wowVersions = cfg.versions;
 			instawow = cfg.package;
+			# This should have a way to use only addons module
+			bnetPrefix = battlenet.prefix;
 	};	
 	
 	toBool = x: x != null && x != { } && x != 0;
