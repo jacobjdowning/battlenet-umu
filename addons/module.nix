@@ -137,6 +137,8 @@ in
 		systemd.user.services.wow-addon-sync = {
 			Unit = {
 				Description = "Sync WoW addons to the declared options on every boot";
+				After = [ "network-online.target" ];
+				Wants = [ "network-online.target" ];
 			};
 
 			Service = {	
@@ -145,6 +147,8 @@ in
 					profile: "${lib.getExe syncPackage} ${profile.name}" 
 				) cfg.versions;
 			};
+
+			Install.WantedBy = [ "default.target" ];
 		};
 	};
 }
