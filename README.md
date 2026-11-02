@@ -40,7 +40,7 @@ programs.battlenet-umu = {
 	];
 	addons = {
 		enable = true;
-        tokens = {
+		tokens = {
 			wagoAddons = "SECRET";
 		};
 		versions = [
