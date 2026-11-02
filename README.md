@@ -21,7 +21,7 @@ let
 	wow = "Program Files (x86)/World of Warcraft";
 	addonFolder = "Interface/Addons";
 in
-{
+programs.battlenet-umu = {
 	enable = true;
 	games = [
 		{ name = "Battle.net"; }
