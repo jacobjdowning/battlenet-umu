@@ -1,5 +1,5 @@
 result
 result-*
 Logs/
-flake.lock
 .nvim/
+dev/flake.lock
