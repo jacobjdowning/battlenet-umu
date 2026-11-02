@@ -13,6 +13,11 @@ if [ ! -f "$bnetPath" ] || [ ! -f "$gamePath" ]; then
 	fi
 fi
 
+if [ -z "${TZ:-}" ] && [ -r /etc/localtime ]; then
+	TZ=$(tail -n 1 /etc/localtime)
+	[ -n "$TZ" ] && export TZ
+fi
+
 if [ ! -f "$bnetPath" ]; then
 	echo "Battle.net is not installed at C:/$BNET_PATH"
 	while true; do
