@@ -14,7 +14,7 @@ imports = [
    	battlenet-umu.homeModules.default
 ];
 ```
-## Usage
+## Configuration
 Here is an example configuration:
 ```nix
 let
@@ -61,8 +61,16 @@ programs.battlenet-umu = {
 - Each element in the list of games creates a launch script with umu launcher and a desktop entry
 - Each element in the list of versions under addons creates a instawow profile
 - Enabling the addon module creates `sync-addons` and a service to run it on rebuild that will sync the addons installed with instawow to your declared addons
-    - `sync-addons <profile>` can be used to manually do this for a profile in order to see the output
+    - `sync-addons <versions.*.name>` can be used to manually do this for a profile in order to see the output
 - `addons.tokens` is where you can enter your tokens for any addon repos you would like to use (see instawow readme for more on that)
     - *Important Note* the way this is implemented means the plain text of the tokens object will be copied into the nix store which is readable by any user
 
 The rest of the options are documented [here](options.md)
+
+## Usage
+
+Enabling the battlenet-umu module will install a package for each game in `games` named <slugified-game.*.name>-umu that includes an install script for the Battle.net launcher (make sure to leave the location as the default) and if Battle.net is installed will launch the specified path within the wine prefix. It will also build desktop items for each game for launch menus.
+
+Enabling the addons submodule will install the [instawow](https://github.com/layday/instawow) package as well as a `sync-addons` package. `sync-addons <versions.*.name>` is called on every rebuild and boot to sync the addons installed with instawow to your declared addons in the config. `sync-addons <versions.*.name>` can also be run manually for debugging purposes. 
+
+Updating addons is done with the base instawow interface: `instawow -p <versions.*.name> update`
