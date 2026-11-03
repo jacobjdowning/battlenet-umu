@@ -68,7 +68,10 @@ programs.battlenet-umu = {
 The rest of the options are documented [here](options.md)
 
 ## Usage
+### Quick Start
+Each game defined in `battlenet-umu.games` will be available in your launcher of choice
 
+### Full Explanation
 Enabling the battlenet-umu module will install a package for each game in `games` named <slugified-game.*.name>-umu that includes an install script for the Battle.net launcher (make sure to leave the location as the default) and if Battle.net is installed will launch the specified path within the wine prefix. It will also build desktop items for each game for launch menus.
 
 Enabling the addons submodule will install the [instawow](https://github.com/layday/instawow) package as well as a `sync-addons` package. `sync-addons <versions.*.name>` is called on every rebuild and boot to sync the addons installed with instawow to your declared addons in the config. `sync-addons <versions.*.name>` can also be run manually for debugging purposes. 
