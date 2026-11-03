@@ -457,3 +457,27 @@ absolute path
  - [/umu/module\.nix](file:///umu/module.nix)
 
 
+
+## programs\.battlenet-umu\.updateRuntime
+
+
+
+Whether umu-launcher should check for a new runtime with each launch, null means check only when nothing is installed
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [/umu/module\.nix](file:///umu/module.nix)
+
+

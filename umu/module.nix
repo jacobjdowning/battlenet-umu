@@ -34,6 +34,11 @@ in
 			type = lib.types.path;
 			default = "${config.xdg.dataHome}/battlenet-umu/prefix";
 		};
+		updateRuntime = lib.mkOption {
+			description = "Whether umu-launcher should check for a new runtime with each launch, null means check only when nothing is installed";
+			type = lib.types.nullOr lib.types.bool;
+			default = null;
+		};
 		games = lib.mkOption {
 			description = "A list of battle.net game definitions";
 			type = lib.types.listOf game;
@@ -48,6 +53,7 @@ in
 				gamePath = game.path;
 				gameName = game.name;
 				launchArgs = game.launchArgs;
+				updateRuntime = cfg.updateRuntime;
 			}
 		) cfg.games;
 	};

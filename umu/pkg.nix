@@ -2,12 +2,15 @@
 	bnetPrefix ? "TestGames/battlenet",
 	gamePath ? "Program Files (x86)/Battle.net/Battle.net Launcher.exe",	
 	gameName ? "Battle.net",
-	launchArgs ? ""
+	launchArgs ? "",
+	updateRuntime ? null
 }:
 let
 	lowerName = lib.toLower gameName;
 	nameList = builtins.filter builtins.isString (builtins.split "[^a-z]+" lowerName);
 	scriptName = lib.concatStringsSep "-" (nameList ++ ["umu"]);
+
+	boolToInt = bool: if bool then 1 else 0;
 
 	script = writeShellApplication {
 		name = scriptName; 
@@ -24,6 +27,8 @@ let
 			BNET_PATH = "Program Files (x86)/Battle.net/Battle.net Launcher.exe";
 			WIN_PATH = gamePath;
 			LAUNCH_ARGS = launchArgs;
+		} // lib.optionalAttrs (updateRuntime != null) { 
+			UMU_RUNTIME_UPDATE = boolToInt updateRuntime;
 		};
 		text = builtins.readFile ./bnet-umu.sh;
 	};	

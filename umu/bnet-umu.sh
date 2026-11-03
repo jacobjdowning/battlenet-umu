@@ -8,9 +8,16 @@ bnetPath="$WINEPREFIX"/drive_c/"$BNET_PATH"
 # then launch a new terminal
 
 if [ ! -f "$bnetPath" ] || [ ! -f "$gamePath" ]; then
+	if [ -z "${UMU_RUNTIME_UPDATE:-}" ]; then
+		export UMU_RUNTIME_UPDATE=1
+	fi
 	if [ ! -t 0 ]; then
 		exec xdg-terminal-exec "$0" "$@"
 	fi
+fi
+
+if [ -z "${UMU_RUNTIME_UPDATE:-}" ]; then	
+	export UMU_RUNTIME_UPDATE=0
 fi
 
 if [ -z "${TZ:-}" ] && [ -r /etc/localtime ]; then
