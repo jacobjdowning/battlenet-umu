@@ -54,6 +54,7 @@ in
 				gameName = game.name;
 				launchArgs = game.launchArgs;
 				updateRuntime = cfg.updateRuntime;
+				proton-ge-bin = game.proton;
 			}
 		) cfg.games;
 	};
