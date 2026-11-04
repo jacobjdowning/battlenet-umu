@@ -37,6 +37,9 @@
 
 					programs.battlenet-umu.addons = {
 						enable = true;
+						tokens = {
+							wagoAddons = "SECRET";
+						};
 						versions = [
 						{
 							name = "era";

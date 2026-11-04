@@ -46,7 +46,7 @@ let
 	mainConfigAttr = {
 		"instawow/config.json".source = 
 			json.generate "instawow-config.json" ({
-			tokens = {
+			access_tokens = {
 				inherit (cfg.tokens) cfcore github;
 				wago_addons = cfg.tokens.wagoAddons;
 			};
