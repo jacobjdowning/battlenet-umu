@@ -108,6 +108,102 @@ JSON value
 
 
 
+## programs\.battlenet-umu\.addons\.tokenFiles
+
+
+
+Paths to files holding API tokens
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [/addons/module\.nix](file:///addons/module.nix)
+
+
+
+## programs\.battlenet-umu\.addons\.tokenFiles\.cfcore
+
+
+
+This option has no description\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [/addons/module\.nix](file:///addons/module.nix)
+
+
+
+## programs\.battlenet-umu\.addons\.tokenFiles\.github
+
+
+
+This option has no description\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [/addons/module\.nix](file:///addons/module.nix)
+
+
+
+## programs\.battlenet-umu\.addons\.tokenFiles\.wagoAddons
+
+
+
+This option has no description\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [/addons/module\.nix](file:///addons/module.nix)
+
+
+
 ## programs\.battlenet-umu\.addons\.tokens
 
 

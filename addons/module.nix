@@ -42,16 +42,37 @@ let
 	cfg = battlenet.addons;
 	json = pkgs.formats.json {};
 
-	# An attr to be set to xdg.configFile for main config
-	mainConfigAttr = {
-		"instawow/config.json".source = 
-			json.generate "instawow-config.json" ({
-			access_tokens = {
-				inherit (cfg.tokens) cfcore github;
-				wago_addons = cfg.tokens.wagoAddons;
-			};
-		} // cfg.extraConfig);
-	};
+  useTokenFile = cfg.tokenFiles.cfcore != null;
+
+  # An attr to be set to xdg.configFile for main config
+  mainConfigJson = json.generate "instawow-config.json" (
+    {
+      access_tokens = {
+        inherit (cfg.tokens) cfcore github;
+        wago_addons = cfg.tokens.wagoAddons;
+      };
+    }
+    // cfg.extraConfig
+  );
+
+  # Only used when no secret file is set
+  mainConfigAttr = {
+    "instawow/config.json".source = mainConfigJson;
+  };
+
+  # Merges the secret into a real (non-store) config file at runtime
+  renderConfig = pkgs.writeShellScript "instawow-render-config" ''
+    set -eu
+    umask 077
+    dir="''${XDG_CONFIG_HOME:-$HOME/.config}/instawow"
+    mkdir -p "$dir"
+    tmp="$(mktemp "$dir/config.json.XXXXXX")"
+    ${pkgs.jq}/bin/jq \
+    --rawfile cfcore ${lib.escapeShellArg cfg.tokenFiles.cfcore} \
+    '.access_tokens.cfcore = ($cfcore | rtrimstr("\n"))' \
+    ${mainConfigJson} > "$tmp"
+    mv -f "$tmp" "$dir/config.json"
+  '';
 
 	profileToConfig = profile: {
 		profile = profile.name;
@@ -98,6 +119,26 @@ in
 			type = lib.types.package;
 			default = pkgs.instawow;
 		};
+    tokenFiles = lib.mkOption {
+      description = "Paths to files holding API tokens";
+      type = lib.types.submodule {
+        options = {
+          cfcore = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+          };
+          github = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+          };
+          wagoAddons = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+          };
+        };
+      };
+      default = { };
+    };
 		tokens = lib.mkOption {
 			description = "API tokens for addon providers";
 			type = lib.types.submodule {
@@ -129,7 +170,7 @@ in
 
 	config = lib.mkIf cfg.enable {
 		home.packages = [ syncPackage  cfg.package ];
-		xdg.configFile = profileConfigsAttr // lib.optionalAttrs hasMainConfig mainConfigAttr ;
+		xdg.configFile = profileConfigsAttr // lib.optionalAttrs (hasMainConfig && !useTokenFile) mainConfigAttr ;
 		
 		systemd.user.services.wow-addon-sync = {
 			Unit = {
@@ -140,6 +181,7 @@ in
 
 			Service = {	
 				Type = "oneshot";
+        ExecStartPre = lib.optional useTokenFile "${renderConfig}";
 				ExecStart = map ( 
 					profile: "${lib.getExe syncPackage} ${profile.name}" 
 				) cfg.versions;

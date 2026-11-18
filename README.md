@@ -40,9 +40,14 @@ programs.battlenet-umu = {
 	];
 	addons = {
 		enable = true;
-		tokens = {
-			wagoAddons = "SECRET";
-		};
+        tokenFiles = {
+            # example using agenix
+            cfcore = config.age.secrets.cfcore.path;
+        };
+        # or tokens as plaintext instead
+		# tokens = {
+		# 	wagoAddons = "SECRET";
+		# };
 		versions = [
 			{
 				name = "era";
